@@ -97,7 +97,7 @@ The ecosystem is divided into three distinct but seamlessly integrated subsystem
 | Subsystem | Model | Accuracy | Latency | Resource Footprint |
 | :--- | :--- | :--- | :--- | :--- |
 | **Edge Hardware** | Float32 TFLite (MLP) | **97.26%** | 2 ms | 3.4 KB RAM / 47.2 KB Flash |
-| **Web Browser (CV)** | Random Forest (100 Trees) | **~95-97%** | < 2 ms | 2.9 MB JS File (No GPU needed) |
+| **Web Browser (CV)** | Mediapipe+Random Forest (100 Trees) | **~95-97%** | < 2 ms | 2.9 MB JS File (No GPU needed) |
 | **Hybrid Logic** | Cross-Verification Engine | **> 95%** | Real-time | Dynamically mitigates >90% of local visual/hardware errors |
 
 *(Note: Aggressive 8-bit Post-Training Quantization (PTQ) was tested on the hardware but rejected due to an accuracy drop to 12.11%. The Float32 model proved optimal for the nRF52840).*
