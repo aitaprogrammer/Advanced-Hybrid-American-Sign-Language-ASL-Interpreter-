@@ -66,6 +66,8 @@ The ecosystem is divided into three distinct but seamlessly integrated subsystem
 * **Sensors:** A network of 4 resistive flex sensors mapped via a 10k voltage divider, augmented by the nRF52840's internal 6-axis IMU.
 <img width="590" height="337" alt="figure32" src="https://github.com/user-attachments/assets/89938d87-4cbd-41ca-9f65-b64b4611eca0" />
 
+<img width="247" height="381" alt="figure41" src="https://github.com/user-attachments/assets/b9d3ab49-273e-44cc-a53c-81db8760297d" />
+
 * **AI Model:** Multilayer Perceptron (MLP) Feedforward Neural Network (64-32-10 architecture with 3,483 parameters) deployed via TensorFlow Lite for Microcontrollers.
 <img width="952" height="103" alt="figure42" src="https://github.com/user-attachments/assets/f6d90d3e-a28b-4cd1-9f67-a7ddb316c4a3" />
 
