@@ -72,10 +72,10 @@ The ecosystem is divided into three distinct but seamlessly integrated subsystem
 ### 3. Orchestration & Learning: Hybrid Fusion Engine & Unity 🌪️
 * **Fusion Logic:** A Node.js server evaluates predictions from the TinyML glove, , and a secondary MobileNetV2 CNN. It uses a confidence-based arbitration algorithm to output the final verified character.
 
-<img width="317" height="149" alt="Screenshot 2026-05-17 223900" src="https://github.com/user-attachments/assets/769ec7e0-ae9d-45a2-b0c1-7ccbbc2fa293" />
+<img width="580" height="338" alt="Screenshot 2026-05-17 223900" src="https://github.com/user-attachments/assets/769ec7e0-ae9d-45a2-b0c1-7ccbbc2fa293" />
 
 * **Gamification:** Unity environment processes WebSocket streams to validate character inputs, synthesize alphanumeric words, and check contextual sentences using Levenshtein Distance algorithms.
-<img width="334" height="290" alt="figure34" src="https://github.com/user-attachments/assets/e364d006-bad1-46e4-9313-d5709d09b3a0" />
+<img width="434" height="390" alt="figure34" src="https://github.com/user-attachments/assets/e364d006-bad1-46e4-9313-d5709d09b3a0" />
 
 ---
 
@@ -90,22 +90,3 @@ The ecosystem is divided into three distinct but seamlessly integrated subsystem
 *(Note: Aggressive 8-bit Post-Training Quantization (PTQ) was tested on the hardware but rejected due to an accuracy drop to 12.11%. The Float32 model proved optimal for the nRF52840).*
 
 ---
-
-## 🚀 Getting Started 🛠️
-
-### Prerequisites
-* Node.js (v18+)
-* Arduino IDE (with `Seeed nRF52 mbed-enabled Boards` package installed)
-* Unity (2022.3 LTS or higher)
-
-### Installation & Deployment
-
-**1. Hardware Flashing:**
-Open `/hardware/src/main.ino` in the Arduino IDE. Connect the XIAO nRF52840, select the correct COM port, and upload the sketch.
-
-**2. Web Application:**
-```bash
-cd web-app
-npm install
-npm run dev
-# The app will be available at http://localhost:5173
