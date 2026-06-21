@@ -42,7 +42,6 @@ https://github.com/user-attachments/assets/5e4aee28-f338-41d0-87b2-d361d8fe31d5
 ### 4. 🎮 Unity Gamified Learning Module
 Beyond one-way translation, this system serves as an interactive educational platform. A Node.js orchestration server streams real-time gesture recognition data via WebSockets into a Unity 3D environment, allowing hearing users to practice ASL characters, words, and full sentences.
 
-
 https://github.com/user-attachments/assets/9499d651-7b84-4b09-ace4-c180e6901f74
 
 
