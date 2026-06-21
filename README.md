@@ -71,6 +71,7 @@ The ecosystem is divided into three distinct but seamlessly integrated subsystem
 
 ### 3. Orchestration & Learning: Hybrid Fusion Engine & Unity 🌪️
 * **Fusion Logic:** A Node.js server evaluates predictions from the TinyML glove, , and a secondary MobileNetV2 CNN. It uses a confidence-based arbitration algorithm to output the final verified character.
+
 <img width="317" height="149" alt="Screenshot 2026-05-17 223900" src="https://github.com/user-attachments/assets/769ec7e0-ae9d-45a2-b0c1-7ccbbc2fa293" />
 
 * **Gamification:** Unity environment processes WebSocket streams to validate character inputs, synthesize alphanumeric words, and check contextual sentences using Levenshtein Distance algorithms.
