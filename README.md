@@ -1,5 +1,5 @@
 # 🌟 Advanced Hybrid American Sign Language (ASL) Interpreter + Game🤟✨
-
+           Awarded 1st Position — Final Year Project, Department of Computer and Software Engineering, ITU 
 An accessible, multi-modal, and fail-safe ASL interpretation system that bridges the communication gap for the Deaf and Hard-of-Hearing (DHH) community. 
 
 Current assistive technologies force a compromise: users must choose between expensive, mechanically fatiguing smart gloves or free, environmentally fragile computer vision apps. This project solves the "Reliability Gap" by fusing physical kinematic data with spatial visual data. Designed with strict cost constraints (sub-30,000 PKR), the entire pipeline runs locally on edge devices and in the browser, ensuring 100% data privacy and an operational latency of just milliseconds.
