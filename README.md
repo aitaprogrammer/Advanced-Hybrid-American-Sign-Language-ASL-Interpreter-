@@ -23,6 +23,10 @@ Current assistive technologies force a compromise: users must choose between exp
 *The core innovation of the project.* This mode utilizes our **Hybrid Fusion Engine** to analyze data from both the Smart Glove and the Camera simultaneously. If the camera fails due to low light or self-occlusion, the system mathematically falls back to the deterministic glove data to ensure uninterrupted translation.
 
 
+https://github.com/user-attachments/assets/50b37d51-f418-407c-bc9f-b5193d9b704e
+
+
+
 ### 2. 📸 Camera Mode (Vision-Only)
 A completely zero-installation experience. The React web app uses MediaPipe to extract 21 3D hand landmarks and feeds them into a custom Random Forest classifier transpiled entirely into JavaScript (`asl_model.js`).
 
