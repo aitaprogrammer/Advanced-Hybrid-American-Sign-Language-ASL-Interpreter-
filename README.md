@@ -57,7 +57,7 @@ The ecosystem is divided into three distinct but seamlessly integrated subsystem
 ### 1. Hardware Layer: The Smart Glove 🧤
 * **Microcontroller:** Seeed Studio XIAO nRF52840 (Selected to overcome ESP32 ADC/BLE concurrent transmission conflicts).
 * **Sensors:** A network of 4 resistive flex sensors mapped via a 10k voltage divider, augmented by the nRF52840's internal 6-axis IMU.
- <img width="590" height="337" alt="figure32" src="https://github.com/user-attachments/assets/89938d87-4cbd-41ca-9f65-b64b4611eca0" />
+<img width="590" height="337" alt="figure32" src="https://github.com/user-attachments/assets/89938d87-4cbd-41ca-9f65-b64b4611eca0" />
 
 * **AI Model:** Multilayer Perceptron (MLP) Feedforward Neural Network (64-32-10 architecture with 3,483 parameters) deployed via TensorFlow Lite for Microcontrollers.
 <img width="952" height="103" alt="figure42" src="https://github.com/user-attachments/assets/f6d90d3e-a28b-4cd1-9f67-a7ddb316c4a3" />
@@ -71,7 +71,7 @@ The ecosystem is divided into three distinct but seamlessly integrated subsystem
 
 ### 3. Orchestration & Learning: Hybrid Fusion Engine & Unity 🌪️
 * **Fusion Logic:** A Node.js server evaluates predictions from the TinyML glove, , and a secondary MobileNetV2 CNN. It uses a confidence-based arbitration algorithm to output the final verified character.
-  <img width="317" height="149" alt="Screenshot 2026-05-17 223900" src="https://github.com/user-attachments/assets/769ec7e0-ae9d-45a2-b0c1-7ccbbc2fa293" />
+<img width="317" height="149" alt="Screenshot 2026-05-17 223900" src="https://github.com/user-attachments/assets/769ec7e0-ae9d-45a2-b0c1-7ccbbc2fa293" />
 
 * **Gamification:** Unity environment processes WebSocket streams to validate character inputs, synthesize alphanumeric words, and check contextual sentences using Levenshtein Distance algorithms.
 <img width="334" height="290" alt="figure34" src="https://github.com/user-attachments/assets/e364d006-bad1-46e4-9313-d5709d09b3a0" />
