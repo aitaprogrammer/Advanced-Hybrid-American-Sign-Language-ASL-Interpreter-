@@ -33,11 +33,19 @@ https://github.com/user-attachments/assets/57f9ceb4-7855-4719-bc15-4aa07669732f
 
 ### 3. 🧤 Glove Mode (Hardware-Only)
 For environments where a camera cannot be used. The custom smart glove features 4 flex sensors and an onboard 6-axis IMU. It processes telemetry locally using an embedded Float32 TinyML Feedforward Neural Network running on the Seeed Studio XIAO nRF52840, sending drift-free predictions via BLE.
-> **[🎬 Insert `glove-mode.mp4` / GIF here]**
+
+
+https://github.com/user-attachments/assets/5e4aee28-f338-41d0-87b2-d361d8fe31d5
+
+
 
 ### 4. 🎮 Unity Gamified Learning Module
 Beyond one-way translation, this system serves as an interactive educational platform. A Node.js orchestration server streams real-time gesture recognition data via WebSockets into a Unity 3D environment, allowing hearing users to practice ASL characters, words, and full sentences.
-> **[🎬 Insert `game-mode.mp4` / GIF here]**
+
+
+https://github.com/user-attachments/assets/9499d651-7b84-4b09-ace4-c180e6901f74
+
+
 
 ---
 
@@ -62,7 +70,7 @@ The ecosystem is divided into three distinct but seamlessly integrated subsystem
 * **AI Model:** Multilayer Perceptron (MLP) Feedforward Neural Network (64-32-10 architecture with 3,483 parameters) deployed via TensorFlow Lite for Microcontrollers.
 <img width="952" height="103" alt="figure42" src="https://github.com/user-attachments/assets/f6d90d3e-a28b-4cd1-9f67-a7ddb316c4a3" />
 
-### 2. Software Layer: Serverless Web App 🕸️
+### 2. Software Layer : Computer Vision 🕸️
 * **Stack:** React + TypeScript + Vite.
 * **Vision Logic:** Extracts 21 3D hand landmarks in real-time through MediaPipe and then runs a transpiled Random Forest classifier over the spatial coordinates to identify the ASL gesture.
 * **Preprocessing Pipeline:** Captures webcam feed → MediaPipe Hands (21 keypoints) → Pixel Mapping → Right-Hand Mirroring → Translation Normalization → Flat Feature Array.
@@ -84,7 +92,7 @@ The ecosystem is divided into three distinct but seamlessly integrated subsystem
 | Subsystem | Model | Accuracy | Latency | Resource Footprint |
 | :--- | :--- | :--- | :--- | :--- |
 | **Edge Hardware** | Float32 TFLite (MLP) | **97.26%** | 2 ms | 3.4 KB RAM / 47.2 KB Flash |
-| **Web Browser** | Random Forest (100 Trees) | **~95-97%** | < 2 ms | 2.9 MB JS File (No GPU needed) |
+| **Web Browser (CV)** | Random Forest (100 Trees) | **~95-97%** | < 2 ms | 2.9 MB JS File (No GPU needed) |
 | **Hybrid Logic** | Cross-Verification Engine | **> 95%** | Real-time | Dynamically mitigates >90% of local visual/hardware errors |
 
 *(Note: Aggressive 8-bit Post-Training Quantization (PTQ) was tested on the hardware but rejected due to an accuracy drop to 12.11%. The Float32 model proved optimal for the nRF52840).*
