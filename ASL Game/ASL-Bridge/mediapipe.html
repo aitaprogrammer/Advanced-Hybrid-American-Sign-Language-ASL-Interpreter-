@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MediaPipe ASL</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <div id="error" style="display:none;"></div>
+    <video id="webcam" autoplay playsinline style="display:none;"></video>
+    <canvas id="canvas" style="display:none;"></canvas>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+    
+    <script>
+        // Global variables for Puppeteer
+        window._landmarks = null;
+        window._frame = null;
+        window._timestamp = Date.now();
+        
+        // Error handling
+        window.onerror = function(msg, url, line, col, error) {
+            const errorEl = document.getElementById('error');
+            if (errorEl) {
+                errorEl.textContent = msg;
+            }
+            console.error('Page error:', msg);
+            return true;
+        };
+
+        console.log('Initializing MediaPipe...');
+
+        const hands = new Hands({
+            locateFile: (file) => {
+                return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
+            }
+        });
+
+        hands.setOptions({
+            maxNumHands: 1,
+            modelComplexity: 1,
+            minDetectionConfidence: 0.5,
+            minTrackingConfidence: 0.5
+        });
+
+        hands.onResults((results) => {
+            try {
+                if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
+                    const landmarks = results.multiHandLandmarks[0];
+                    const flat = [];
+                    landmarks.forEach(lm => {
+                        flat.push(lm.x, lm.y);
+                    });
+                    window._landmarks = flat;
+                    window._timestamp = Date.now();
+                    
+                    // Send frame for debugging
+                    const canvas = document.getElementById('canvas');
+                    const video = document.getElementById('webcam');
+                    if (canvas && video) {
+                        canvas.width = video.videoWidth || 640;
+                        canvas.height = video.videoHeight || 480;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(video, 0, 0);
+                        window._frame = canvas.toDataURL('image/jpeg', 0.7);
+                    }
+                }
+            } catch (e) {
+                console.error('Results error:', e);
+            }
+        });
+
+        // Start camera
+        const video = document.getElementById('webcam');
+        const camera = new Camera(video, {
+            onFrame: async () => {
+                try {
+                    await hands.send({image: video});
+                } catch (e) {
+                    console.error('Send error:', e);
+                }
+            },
+            width: 640,
+            height: 480
+        });
+
+        camera.start().then(() => {
+            console.log('✅ Camera started successfully');
+        }).catch(err => {
+            console.error('❌ Camera error:', err);
+            const errorEl = document.getElementById('error');
+            if (errorEl) {
+                errorEl.textContent = 'Camera error: ' + err.message;
+            }
+        });
+    </script>
+</body>
+</html>

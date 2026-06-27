@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ASL Bridge</title>
+  <style>
+    body { margin: 0; background: #111; display: flex; flex-direction: column; align-items: center; }
+    video { transform: scaleX(-1); border: 2px solid #444; margin-top: 10px; }
+    #status { color: lime; font-family: monospace; font-size: 18px; margin-top: 10px; }
+    #prediction { color: white; font-family: monospace; font-size: 28px; margin-top: 5px; }
+  </style>
+</head>
+<body>
+  <video id="video" width="640" height="480" autoplay playsinline></video>
+  <div id="status">Connecting...</div>
+  <div id="prediction">Waiting for hand...</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+  <script>
+    const video = document.getElementById('video');
+    const statusDiv = document.getElementById('status');
+    const predDiv = document.getElementById('prediction');
+
+    // Connect to bridge server
+    const ws = new WebSocket('ws://localhost:8080');
+    ws.onopen  = () => statusDiv.textContent = '✅ Connected to bridge server';
+    ws.onclose = () => statusDiv.textContent = '❌ Disconnected – is server.js running?';
+    ws.onmessage = (e) => {
+      const { letter, confidence } = JSON.parse(e.data);
+      predDiv.textContent = `Detected: ${letter} (${(confidence * 100).toFixed(0)}%)`;
+    };
+
+    // MediaPipe Hands setup
+    const hands = new Hands({ locateFile: f =>
+      `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${f}` });
+    hands.setOptions({
+      maxNumHands: 1,
+      modelComplexity: 1,
+      minDetectionConfidence: 0.7,
+      minTrackingConfidence: 0.5
+    });
+
+    hands.onResults(results => {
+      if (!results.multiHandLandmarks?.length) {
+        predDiv.textContent = 'No hand detected';
+        return;
+      }
+      const lm = results.multiHandLandmarks[0];
+      const W = video.videoWidth || 640;
+      const H = video.videoHeight || 480;
+      // Convert normalized landmarks to pixel coords
+      const landmarks = lm.flatMap(p => [p.x * W, p.y * H]);
+      if (ws.readyState === WebSocket.OPEN)
+        ws.send(JSON.stringify({ landmarks }));
+    });
+
+    const camera = new Camera(video, {
+      onFrame: async () => await hands.send({ image: video }),
+      width: 640, height: 480
+    });
+    camera.start();
+  </script>
+</body>
+</html>
