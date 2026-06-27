@@ -103,3 +103,5 @@ The ecosystem is divided into three distinct but seamlessly integrated subsystem
 *(Note: Aggressive 8-bit Post-Training Quantization (PTQ) was tested on the hardware but rejected due to an accuracy drop to 12.11%. The Float32 model proved optimal for the nRF52840).*
 
 ---
+
+/**/
