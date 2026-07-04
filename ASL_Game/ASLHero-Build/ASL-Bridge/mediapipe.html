@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+<video id="video" width="640" height="480" autoplay playsinline></video>
+<canvas id="canvas" width="640" height="480" style="display:none"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+<script>
+  const video = document.getElementById('video');
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+
+  navigator.mediaDevices.enumerateDevices().then(devices => {
+    const cam = devices.find(d =>
+      d.kind === 'videoinput' &&
+      d.label.toLowerCase().includes('integrated')
+    ) || devices.find(d => d.kind === 'videoinput');
+
+    console.log('Using camera:', cam ? cam.label : 'none');
+    return navigator.mediaDevices.getUserMedia({
+      video: { deviceId: cam ? { exact: cam.deviceId } : undefined }
+    });
+  }).then(stream => {
+    video.srcObject = stream;
+    startMediaPipe();
+  }).catch(err => {
+    console.error('Camera error:', err.message);
+  });
+
+  function startMediaPipe() {
+    const hands = new Hands({ locateFile: f =>
+      `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${f}` });
+    hands.setOptions({
+      maxNumHands: 1, modelComplexity: 1,
+      minDetectionConfidence: 0.7, minTrackingConfidence: 0.5
+    });
+    hands.onResults(results => {
+      if (!results.multiHandLandmarks?.length) {
+        window._landmarks = null;
+      } else {
+        const lm = results.multiHandLandmarks[0];
+        const W = video.videoWidth || 640, H = video.videoHeight || 480;
+        window._landmarks = lm.flatMap(p => [p.x * W, p.y * H]);
+      }
+      // Capture frame as base64 JPEG
+      ctx.drawImage(video, 0, 0, 640, 480);
+      window._frame = canvas.toDataURL('image/jpeg', 0.5);
+    });
+    const camera = new Camera(video, {
+      onFrame: async () => await hands.send({ image: video }),
+      width: 640, height: 480
+    });
+    camera.start();
+  }
+</script>
+</body>
+</html>
